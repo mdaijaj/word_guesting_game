@@ -1,0 +1,68 @@
+ body {
+  background-color: skyblue;
+  /* position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  text-align: center; */
+}
+/*
+#guess {
+  height: 50px;
+  width: 50px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-size: 24px;
+  text-transform: uppercase;
+}
+
+#rightGuess {
+  display: flex;
+  text-transform: uppercase;
+}
+
+#wrongGuess {
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.wordBlocks,
+.wrongWordBlocks {
+  height: 50px;
+  width: 50px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+  background: white;
+  color: black;
+  border-radius: 10px;
+}
+
+.wrongWordBlocks {
+  background: #dc3545;
+  color: white;
+} */
+
+
+.App {
+  text-align: center;
+  margin-top: 50px;
+}
+
+input {
+  margin-right: 10px;
+}
+
+button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+p {
+  margin-top: 20px;
+}
