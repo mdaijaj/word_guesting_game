@@ -79,7 +79,6 @@ const StartPage=()=>{
               <option value="very_hard">Very Hard</option>
             </select>
           </div>
-         
         </div>
         <br />
         <button

@@ -4,6 +4,7 @@ import {wordList} from '../component/asset'
 import { useNavigate, useParams } from 'react-router-dom';
 
 const GameDashBoard= ()=> {
+    const {id}=useParams()
     const [wordObj, setWordObj] = useState('');
     const [wordlength, setWordlength]= useState(0)
     const [isOpen, setIsOpen] = useState(false);
@@ -15,9 +16,8 @@ const GameDashBoard= ()=> {
     const [staticMessage, setStaticMessage]= useState()
     const [victory, setVictory]= useState({status: false, color: "skyblue"})
     const [score, setScore]= useState(0)
-
-    let mainarr=[]
-    const {id}=useParams()
+    let allguessArr=[]
+  
 
     let randomWord=()=> {
         let ranItem = wordList[Math.floor(Math.random() * wordList.length)];
@@ -31,10 +31,6 @@ const GameDashBoard= ()=> {
         }
         setWordlength(mainarr)
     }
-
-    useEffect(()=>{
-        randomWord();
-    }, [])
 
     function toggle() {
         setIsOpen((isOpen) => !isOpen);
@@ -61,17 +57,22 @@ const GameDashBoard= ()=> {
         if (res.status === 200 || !res) {
             console.log("Invalid data")
             randomWord()
+            setHistoryItem([])
+            setButtonOpen(false)
+            setMessage("")
+            setRemaining(5)
+            setStaticMessage(`You have ${remaining} guesses remaining.`)
         }
-      
     }
+
     const handleGuess = () => {
         console.log("wordObj", wordObj)
         console.log(wordObj.word.includes(guess));
         let index = wordObj.word.indexOf(guess);
         console.log("index", index);
    
-        mainarr.push(guess)
-        setHistoryItem(mainarr)
+        setHistoryItem([...historyItem, guess]);
+        
 
     
         console.log("remaining", remaining)
@@ -92,9 +93,11 @@ const GameDashBoard= ()=> {
                 setVictory(obj)
                 // randomWord()
                 setButtonOpen(true)
-            }else{
+            }
+            else if(historyItem.includes(guess)){
                 setMessage(`You already guessed that letter, silly. Try again. ${guess}`)
             }
+            
         }
         else if(remaining<=0){
             setMessage(`Game over. The Right word is ${wordObj.word}`)
@@ -113,6 +116,13 @@ const GameDashBoard= ()=> {
         }
     };
 
+
+    useEffect(()=>{
+        randomWord();
+    }, [])
+
+
+
     return (
         <>
         <div className="App">
@@ -124,7 +134,14 @@ const GameDashBoard= ()=> {
             <button onClick={()=>{toggle(false)}}>Hint</button>
            {isOpen?  <h5>Hint:- {wordObj.hint}</h5> : ""}
             <h5>{staticMessage}</h5>
-            <h5>Wrong guesses:- {historyItem}</h5>
+
+
+            <h5>All guesses:- <ul className="horizontal-list">
+                    {historyItem.map((item, index) => (
+                    <li>{item}</li>
+                    ))}
+                </ul>
+             </h5>
             <input
                 type="text"
                 placeholder="Enter your first Charactor"
@@ -138,7 +155,7 @@ const GameDashBoard= ()=> {
     : ""
     }
 
-        <div className='score' style={{textAlign: "center"}}>
+        <div className='score' style={{textAlign: "center", padding: "20px"}}>
                 Your Score:  {score}
         </div>
         </>

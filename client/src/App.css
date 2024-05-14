@@ -66,3 +66,14 @@ button {
 p {
   margin-top: 20px;
 }
+.horizontal-list {
+  margin: auto;
+  display: flex;
+  list-style-type: none; /* Remove default bullets */
+  padding: 0;
+}
+
+/* Style the li to have some space between items */
+.horizontal-list li {
+  margin-right: 10px;
+}
